@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// All imports are now without extensions, relying on Vite/TS to resolve the confirmed .tsx files.
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -12,7 +13,9 @@ import './styles/styles.css';
 
 function App() {
     return (
-        <Router basename="/ensoltech_new">
+        // The 'basename' attribute is correctly REMOVED. 
+        // This solves the original Vercel blank page issue by rooting the app at the domain level.
+        <Router> 
             <div className="min-h-screen bg-white"> 
                 <Navbar />
                 <Routes>
