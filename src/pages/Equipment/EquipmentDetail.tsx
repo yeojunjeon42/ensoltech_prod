@@ -41,7 +41,7 @@ const EquipmentDetail: React.FC = () => {
             {item.image && (
               <div className="mb-8">
                 <img 
-                  src={`/ensoltech_new/img/equipment/${item.image}`} 
+                  src={`/img/equipment/${item.image}`} 
                   alt={item.name}
                   className="w-full h-auto rounded-lg shadow-md"
                 />
