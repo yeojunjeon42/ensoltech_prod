@@ -14,14 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeojunjeon42/ensoltech_new.git"
+    "url": "git+https://github.com/yeojunjeon42/ensoltech_prod.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yeojunjeon42/ensoltech_new/issues"
+    "url": "https://github.com/yeojunjeon42/ensoltech_prod/issues"
   },
+  "homepage": "."
   "description": "",
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
