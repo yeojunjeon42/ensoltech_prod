@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/yeojunjeon42/ensoltech_prod/issues"
   },
-  "homepage": "."
+  "homepage": ".",
   "description": "",
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
