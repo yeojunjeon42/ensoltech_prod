@@ -5,7 +5,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/ensoltech_new/',
+  // 1. REMOVE or set to '/' if the app is hosted at the domain root (e.g., your-project.vercel.app/)
+  // base: '/ensoltech_prod/',  <-- DELETE THIS LINE
+  
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
