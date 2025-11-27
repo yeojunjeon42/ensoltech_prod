@@ -1,5 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { equipmentData } from '../data/equipmentData';
+
+// Constants for reusable CSS classes
+const LINK_CLASSES = "block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors";
 
 function Navbar() {
     const navigate = useNavigate();
@@ -114,75 +118,15 @@ function Navbar() {
                                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Equipment Solution (생산장비솔루션)</h3>
                                 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    {/* 수직 PCB/IC 장비 */}
-                                    <div className="space-y-3">
-                                        <h4 className="text-lg font-semibold text-gray-900 mb-3">수직 PCB/IC 장비</h4>
-                                        <div className="space-y-0">
-                                            <Link to="/equipment/dc-vcp" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                DC VCP
-                                            </Link>
-                                            <Link to="/equipment/ppr-vcp" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                PPR VCP
-                                            </Link>
-                                            <Link to="/equipment/carrier-cu-plating" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                캐리어타입 CU plating
-                                            </Link>
-                                            <Link to="/equipment/horizontal-electric-cu-plating" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                수평전기동 CU plating
-                                            </Link>
-                                            <Link to="/equipment/ic-plating" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                    IC 도금 장비 
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                    {/* 수평 PCB 장비 */}
-                                    <div className="space-y-3">
-                                        <h4 className="text-lg font-semibold text-gray-900 mb-3">수평 PCB 장비</h4>
-                                        <div className="space-y-0">
-                                            <Link to="/equipment/desmear" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Desmear
-                                            </Link>
-                                            <Link to="/equipment/electroless-cu" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Electroless Cu
-                                            </Link>
-                                            <Link to="/equipment/blackhole" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Blackhole
-                                            </Link>
-                                            <Link to="/equipment/shadow" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Shadow
-                                            </Link>
-                                            <Link to="/equipment/flash-cu-plating" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Flash Cu plating
-                                            </Link>
-                                            <Link to="/equipment/brownoxide" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                BrownOxide
-                                            </Link>
-                                            <Link to="/equipment/immersion-tin" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Immersion Tin
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                    {/* 진공 홈플러깅 */}
-                                    <div className="space-y-3">
-                                        <h4 className="text-lg font-semibold text-gray-900 mb-3">진공 홈플러깅</h4>
-                                        <div className="space-y-0">
-                                            <Link to="/equipment/vacuum-hole-plugging" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Vacuum Hole Plugging Equipment
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                    {/* 양면 자동 인쇄기 */}
-                                    <div className="space-y-3">
-                                        <h4 className="text-lg font-semibold text-gray-900 mb-3">양면 자동 인쇄기</h4>
-                                        <div className="space-y-0">
-                                            <Link to="/equipment/double-sided-printer" className="block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2 rounded transition-colors">
-                                                Double-sided Automatic Printer
-                                            </Link>
-                                        </div>
-                                    </div>
+                                    {equipmentData.map((item) => (
+                                        <Link 
+                                            key={item.id}
+                                            to={`/equipment/${item.id}`}
+                                            className={LINK_CLASSES}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
                                 </div>
                         </div>
                     </div>
