@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // All imports are now without extensions, relying on Vite/TS to resolve the confirmed .tsx files.
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import EquipmentDetail from './pages/Equipment/EquipmentDetail';
+import Home from './components/Home';
+import EquipmentDetail from './components/Equipment/EquipmentDetail';
 import './styles/styles.css';
 
 function App() {

@@ -175,7 +175,11 @@ export const equipmentData: EquipmentItem[] = [
       '브랜드: SUUS',
       '모델: CTV-800'
     ],
-    images: []
+    images: [
+      '5-1.png',
+      '5-2.png',
+      '5-3.png'
+    ]
   },
   {
     id: 'vertical-vacuum-hole-plugging',
@@ -204,7 +208,9 @@ export const equipmentData: EquipmentItem[] = [
       '브랜드: SUUS',
       '모델: VPV900'
     ],
-    images: []
+    images: [
+      '6.png'
+    ]
   },
   {
     id: 'automatic-double-side-psr-screen-printer',
@@ -227,7 +233,9 @@ export const equipmentData: EquipmentItem[] = [
       '속도 180~300 판넬/hr',
       '브랜드: ATMA'
     ],
-    images: []
+    images: [
+      '7.png'
+    ]
   },
   {
     id: 'ic-package-ceramic-brush-line',
@@ -254,7 +262,9 @@ export const equipmentData: EquipmentItem[] = [
       '몰딩, 포스트 몰드 큐어, 그라인딩 및 도금 공정과 호환',
       '모델: HGT-420-1, HGT-430-1'
     ],
-    images: []
+    images: [
+      '8.png'
+    ]
   },
   {
     id: 'vcp-type-barrel-plating-line',
@@ -283,7 +293,10 @@ export const equipmentData: EquipmentItem[] = [
       '제어된 액체 흐름을 갖춘 다단계 탱크 시스템',
       '안정적인 작동을 위한 견고한 기어 및 체인 구동 메커니즘'
     ],
-    images: []
+    images: [
+      '9-1.png',
+      '9-2.png'
+    ]
   }
 ];
 
