@@ -30,46 +30,47 @@ const EquipmentDetail: React.FC = () => {
           
           <div className="prose max-w-none">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Description</h2>
-            <p className="text-gray-700 mb-6">
+            <p className="text-gray-700 mb-8">
               {item.description}
             </p>
-            <p className="text-gray-700 mb-8">
-              {item.descriptionKorean}
-            </p>
 
-            {/* Equipment Image */}
-            {item.image && (
-              <div className="mb-8">
-                <img 
-                  src={`/img/equipment/${item.image}`} 
-                  alt={item.name}
-                  className="w-full h-auto rounded-lg shadow-md"
-                />
+            {/* Equipment Images */}
+            {item.images && item.images.length > 0 && (
+              <div className="mb-8 space-y-4">
+                {item.images.map((image, index) => (
+                  <div key={index}>
+                    <img 
+                      src={`/img/equipment/${image}`} 
+                      alt={`${item.name} - Image ${index + 1}`}
+                      className="w-full h-auto rounded-lg shadow-md"
+                    />
+                  </div>
+                ))}
               </div>
             )}
 
             {item.specifications && item.specifications.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications (English)</h2>
                 <ul className="space-y-2">
                   {item.specifications.map((spec, index) => (
-                    <li key={index} className="flex items-center text-gray-700">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                      {spec}
+                    <li key={index} className="flex items-start text-gray-700">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                      <span>{spec}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {item.features && item.features.length > 0 && (
+            {item.specificationsKorean && item.specificationsKorean.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Key Features</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications (한국어)</h2>
                 <ul className="space-y-2">
-                  {item.features.map((feature, index) => (
-                    <li key={index} className="flex items-center text-gray-700">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      {feature}
+                  {item.specificationsKorean.map((spec, index) => (
+                    <li key={index} className="flex items-start text-gray-700">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                      <span>{spec}</span>
                     </li>
                   ))}
                 </ul>
