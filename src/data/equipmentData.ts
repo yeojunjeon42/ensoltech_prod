@@ -36,7 +36,7 @@ export const equipmentData: EquipmentItem[] = [
       'Sheet, RTR 타입 PCB 적용가능.',
       'MLB, HDI, FPCB, IC sub 응용'
     ],
-    images: []
+    images: ['1.png']
   },
   {
     id: 'steel-belt-vcp',
@@ -66,9 +66,7 @@ export const equipmentData: EquipmentItem[] = [
       'PM 관리 및 생산 조작 용이'
     ],
     images: [
-      '2-1.png',
-      '2-2.png',
-      '2-3.png'
+      '2.png'
     ]
   },
   {
@@ -177,8 +175,7 @@ export const equipmentData: EquipmentItem[] = [
     ],
     images: [
       '5-1.png',
-      '5-2.png',
-      '5-3.png'
+      '5-2.png'
     ]
   },
   {
