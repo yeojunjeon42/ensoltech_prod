@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const INPUT_CLASSES = "w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-400"
+
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -112,7 +114,7 @@ const Contact: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className={INPUT_CLASSES}
                 style={{ borderColor: 'var(--border-color)' }}
                 placeholder="이름을 입력해주세요"
               />
@@ -129,8 +131,8 @@ const Contact: React.FC = () => {
                 name="organization"
                 value={formData.organization}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                style={{ borderColor: 'var(--border-color)' }}
+                className={INPUT_CLASSES}
+                style={{ borderColor: 'var(--border-color)'}}
                 placeholder="회사명을 입력해주세요"
               />
             </div>
@@ -147,7 +149,7 @@ const Contact: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className={INPUT_CLASSES}
                 style={{ borderColor: 'var(--border-color)' }}
                 placeholder="email@example.com"
               />
@@ -165,7 +167,7 @@ const Contact: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                className={INPUT_CLASSES + " resize-none"}
                 style={{ borderColor: 'var(--border-color)' }}
                 placeholder="문의사항을 입력해주세요"
               />

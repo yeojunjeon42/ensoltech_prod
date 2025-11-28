@@ -1,10 +1,22 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { getEquipmentItem } from '../../data/equipmentData';
+import { useParams, useLocation } from 'react-router-dom';
+import { getSolutionItem } from '../data/solutionData';
 
 const EquipmentDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const item = id ? getEquipmentItem(id) : undefined;
+  const location = useLocation();
+  const item = id ? getSolutionItem(id) : undefined;
+  
+  // Extract category from pathname (equipment, enproductive, or encycle)
+  const getImageCategory = (): string => {
+    const pathname = location.pathname;
+    if (pathname.startsWith('/equipment/')) return 'equipment';
+    if (pathname.startsWith('/enproductive/')) return 'enproductive';
+    if (pathname.startsWith('/encycle/')) return 'encycle';
+    return 'equipment'; // default fallback
+  };
+  
+  const imageCategory = getImageCategory();
 
   if (!item) {
     return (
@@ -17,7 +29,7 @@ const EquipmentDetail: React.FC = () => {
     );
   }
 
-  return (
+  return ( //equipment card part
     <div className="pt-24 px-4 lg:px-32 py-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-lg p-8">
@@ -29,29 +41,14 @@ const EquipmentDetail: React.FC = () => {
           </p>
           
           <div className="prose max-w-none">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Description</h2>
+            {/* <h2 className="text-2xl font-semibold text-gray-900 mb-4">Description</h2>
             <p className="text-gray-700 mb-8">
               {item.description}
-            </p>
-
-            {/* Equipment Images */}
-            {item.images && item.images.length > 0 && (
-              <div className="mb-8 space-y-4">
-                {item.images.map((image, index) => (
-                  <div key={index}>
-                    <img 
-                      src={`/img/equipment/${image}`} 
-                      alt={`${item.name} - Image ${index + 1}`}
-                      className="w-full h-auto rounded-lg shadow-md"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            </p> */}
 
             {item.specifications && item.specifications.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications (English)</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications</h2>
                 <ul className="space-y-2">
                   {item.specifications.map((spec, index) => (
                     <li key={index} className="flex items-start text-gray-700">
@@ -65,7 +62,7 @@ const EquipmentDetail: React.FC = () => {
 
             {item.specificationsKorean && item.specificationsKorean.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications (한국어)</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications</h2>
                 <ul className="space-y-2">
                   {item.specificationsKorean.map((spec, index) => (
                     <li key={index} className="flex items-start text-gray-700">
@@ -77,9 +74,24 @@ const EquipmentDetail: React.FC = () => {
               </div>
             )}
 
+            {/* Equipment Images */}
+            {item.images && item.images.length > 0 && (
+              <div className="mb-8 space-y-4">
+                {item.images.map((image, index) => (
+                  <div key={index}>
+                    <img 
+                      src={`/img/${imageCategory}/${image}`} 
+                      alt={`${item.name} - Image ${index + 1}`}
+                      className="w-full h-auto rounded-lg shadow-md"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="mt-8 pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-500">
-                For more information about this equipment, please contact our sales team.
+                For more information about this equipment, please do not hesitate to contact us.
               </p>
             </div>
           </div>

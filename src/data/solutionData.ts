@@ -1,5 +1,6 @@
-export interface EquipmentItem { //defines the type EquipmentItem
+export interface SolutionItem { //defines the type SolutionItem
   id: string;
+  shortname: string;
   name: string;
   nameKorean: string;
   description: string;
@@ -8,10 +9,11 @@ export interface EquipmentItem { //defines the type EquipmentItem
   images?: string[];
 }
 
-export const equipmentData: EquipmentItem[] = [
+export const equipmentData: SolutionItem[] = [
   {
     id: 'horizontal-inline-desmear-pth-flash-cu',
-    name: 'Horizontal Inline Desmear+PTH(DM)+Flash Cu line',
+    shortname: 'Horizontal Inline Desmear-PTH-Flash Cu Line',
+    name: 'Horizontal Inline Desmear-PTH-Flash Cu Line',
     nameKorean: '수평 인라인 디스미어-화학동(블랙홀)-플래시 도금',
     description: 'Horizontal inline desmear, PTH (Black Hole), and flash copper plating system for PCB manufacturing.',
     specifications: [
@@ -40,6 +42,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'steel-belt-vcp',
+    shortname: 'Steel belt type VCP',
     name: 'Steel belt type VCP',
     nameKorean: '스틸밸트형 VCP',
     description: 'Steel belt type Vertical Continuous Plating (VCP) system with innovative conveyor technology for high-precision PCB manufacturing.',
@@ -71,6 +74,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'carrier-type-plating-line',
+    shortname: 'Carrier type plating line',
     name: 'Carrier type plating line',
     nameKorean: '캐리어 도금 설비',
     description: 'Carrier type plating line system for high aspect ratio PCB manufacturing with advanced agitation and anode technology.',
@@ -104,6 +108,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'horizontal-wet-process',
+    shortname: 'Horizontal Wet process',
     name: 'Horizontal Wet process',
     nameKorean: '수평 웨트 설비',
     description: 'Comprehensive horizontal wet process equipment line for various PCB surface treatment and processing applications.',
@@ -142,20 +147,18 @@ export const equipmentData: EquipmentItem[] = [
       '동분 여과기'
     ],
     images: [
-      '4-1.png',
-      '4-2.png',
-      '4-3.png',
-      '4-4.png'
+      '4.png'
     ]
   },
   {
     id: 'horizontal-vacuum-hole-plugging',
+    shortname: 'Horizontal Vacuum Hole Plugging',
     name: 'Horizontal Vacuum Hole Plugging',
     nameKorean: '수평 진공 홀플러깅 설비',
     description: 'Advanced horizontal vacuum hole plugging system (SUUS CTV-800) designed for high-precision PCB manufacturing. Features automated workflow from robot loading through vacuum alignment, printing chamber movement, and robot unloading with oven transfer. Capable of perfect hole plugging for high aspect ratio blind holes and through-holes.',
     specifications: [
       '5:1 AR BVH, 30:1 perfect through-hole plugging',
-      'Vacuum degree up to 20pa',
+      'Vacuum degree up to 20 Pa',
       '1.5~3.5 panels/minute production capacity',
       '4CCD camera alignment',
       'Automatic ink supply device and automatic mesh cleaning device',
@@ -165,7 +168,7 @@ export const equipmentData: EquipmentItem[] = [
     ],
     specificationsKorean: [
       '5:1 AR BVH, 30:1 관통홀 완벽 홀플러깅',
-      '20pa 이르는 진공도',
+      '20 Pa 이르는 진공도',
       '1.5~3.5 판넬/분 생산성능',
       '4CCD 카메라 얼라인먼트',
       '자동잉크공급장치 및 자동 망사 세척장치',
@@ -180,6 +183,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'vertical-vacuum-hole-plugging',
+    shortname: 'Vertical Vacuum Hole Plugging',
     name: 'Vertical Vacuum Hole Plugging',
     nameKorean: '수직 진공 홀플러깅 설비',
     description: 'Vertical vacuum hole-plugging system (SUUS VPV900) featuring modular design with separate loading/unloading station and main processing unit. Constructed with robust stainless steel for industrial environments, equipped with multiple vacuum chambers, digital control screens, and integrated piping for vacuum and fluid management.',
@@ -211,6 +215,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'automatic-double-side-psr-screen-printer',
+    shortname: 'Automatic Double Side PSR Screen Printer',
     name: 'Automatic Double Side PSR Screen Printer',
     nameKorean: '전자동 양면 수평 PSR 인쇄기',
     description: 'Fully automatic double-sided horizontal PSR screen printer featuring integrated sequence of input alignment, A-side printing, flipping, B-side printing, and unloading with automatic connection to vertical oven. High-strength aluminum frame ensures precision and long-term stability.',
@@ -236,6 +241,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'ic-package-ceramic-brush-line',
+    shortname: 'IC Package Board Ceramic Brush Line',
     name: 'IC Package Board Ceramic Brush Line',
     nameKorean: 'IC/반도체 기판/패키지 EMC 세라믹 브러시 설비',
     description: 'Mechanical ceramic brush line for IC package boards designed to remove mold flash efficiently. Achieves higher yield and shorter process time compared to chemical de-flash methods. Effective for QFN packages, exposed thermo pads, and pre-molding lead frames. Suitable for various mold flash types with superior performance on Level B and C flash.',
@@ -265,6 +271,7 @@ export const equipmentData: EquipmentItem[] = [
   },
   {
     id: 'vcp-type-barrel-plating-line',
+    shortname: 'VCP Type Barrel Plating Line',
     name: 'VCP Type Barrel Plating Line',
     nameKorean: 'VCP 형 바렐도금 설비',
     description: 'Vertical continuous movement type barrel plating system for efficient and continuous electroplating of small parts. Features continuous horizontal movement with barrel rotation, automatically controlled by PLC/PC at 0-20rpm. Optimized for uniform coating thickness with reduced product wear and hydrogen embrittlement issues.',
@@ -297,6 +304,278 @@ export const equipmentData: EquipmentItem[] = [
   }
 ];
 
-export const getEquipmentItem = (id: string): EquipmentItem | undefined => {
-  return equipmentData.find(item => item.id === id);
+export const enproductiveData: SolutionItem[] = [
+  {
+    id: 'topway-online-chemical-analyzer',
+    shortname: 'Online Chemical Analyzer',
+    name: 'TOPWAY - Real time Online Chemical Analyzer & Dosing System',
+    nameKorean: '실시간 온라인 약품 분석 및 보충설비',
+    description: '',
+    specifications: [
+      'The top seller of online chemical analysis system in China',
+      'Online etching controller (Cu, H2O2, H2SO4 Etching controller)',
+      'Desmear-Electroless Cu- Viafill-',
+      'Pd Controller (XRF, Colorimeter)',
+      'Electroless Nickel controller for ENIG',
+      'Electroless Cu colorimeter type controller (Titration method)',
+      'Automatic calibration / Automatic cleaning',
+      'Dosing Cup & accurate Tube pump'
+    ],
+    specificationsKorean: [
+      '중국자동분석/공급장치 1위공급사',
+      '온라인 에칭콘트롤러 (Cu, H2O2, H2SO4 Etching controller)',
+      'Desmear-Electroless Cu- Viafill-',
+      '팔라듐 Pd Controller (XRF, Colorimeter)',
+      '무전해니켈 Electroless Nickel controller for ENIG',
+      '무전해화학동 Electroless Cu colorimeter type controller (적정방식)',
+      '자동 캘리브레이션/자동청소',
+      'Dosing Cup & accurate Tube pump'
+    ],
+    images: ['1-1.png', '1-2.png', '1-3.png']
+  },
+  {
+    id: 'smart-filter-particle-sludgy-auto-discharger',
+    shortname: 'Particle/Sludgy Auto-discharger',
+    name: 'Smart filter – Desmear sludgy/particle automatic discharge system',
+    nameKorean: '스마트 필터 - 디스미어 슬러지/파티클 자동 배출',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['2-1.png', '2-2.png', '2-3.png', '2-4.png']
+  },
+  {
+    id: 'multi-channel-ppr-dc-rectifier',
+    shortname: 'Multi-channel PPR/DC Rectifier',
+    name: 'Multi-channel PPR/DC Rectifier',
+    nameKorean: '다채널 PPR/DC 정류기',
+    description: '',
+    specifications: [
+      'Top Pulse/DC rectifier supplier in China, affordable & high performance compared to German/US/Japanese products',
+      'Various Multistage Waveform and different settings possible',
+      'PPR plating, THF plating application, DC setting possible',
+      'Small rectifier space occupation with 4~8 outputs, (Water-cooled, Air-cooled), Individual setting for each Waveform',
+      'IGBT + Mosfet method for high-speed switching, 30% power cost saving compared to SCR',
+      'RS485 communication support',
+      'Demo PPR rectifier free test available',
+      'High-speed plating and copper consumption reduction DC -> PPR conversion engineering',
+      'Top PCB customers include WUS, TTM, SCC, Founder, Mflex, KingWong'
+    ],
+    specificationsKorean: [
+      '중국 1위 펄스/DC 정류기공급사 독일/미국/일본산 대비 저렴&고성능',
+      '다양한 Multistage Waveform 및 상이동 설정가능',
+      'PPR 도금, THF 도금 적용, DC 설정 가능',
+      '4~8개의 아웃풋으로 적은 정류기 공간 차지, (수냉식, 공냉식), 각 Waveform 개별적으로 설정 가능',
+      'IGBT + Mosfet 방식으로 초고속 전환, SCR 대비 30% 전력비 절감',
+      'RS485통신지원',
+      '데모용 PPR 정류기 무상 테스트 가능',
+      '고속도금 및 동소모량감소 DC -> PPR 전환 엔지니어링',
+      'WUS, TTM, SCC, Founder, Mflex, KingWong 등 상위 PCB 고객'
+    ],
+    images: ['3-1.png', '3-2.png', '3-3.png']
+  },
+  {
+    id: 'lab-scale-nano-dip-coater',
+    shortname: 'Lab Scale Nano-dip Coater',
+    name: 'Lab Scale Nano-dip Coater',
+    nameKorean: '소형 딥코터',
+    description: '',
+    specifications: [
+      'Pulling speed: 1 ~ 8000µm/s, resolution: 1µm/s',
+      'Stroke length: MAX 260 mm, resolution: 1mm',
+      'Substrate size: MIN 10×10mm, MAX 200×200mm',
+      'MAX thickness 10mm',
+      'Dipping time: 1 ~ 3600s, resolution: 1s',
+      'Dipping-Coating cycle times: 1 ~ 1000 times',
+      'Cycle interval: 1 ~ 3600s, resolution: 1s',
+      'Dimensions (L×W×H): 440×300×780mm',
+      'Servo motor and high-precision operation module used for smooth and stable coating speed',
+      '100% chemical resistant material used',
+      'Various parameters, fully automatic control (dipping/pulling speed adjustment, immersion time, stroke distance, coating cycles, coating intervals, etc.)',
+      '4.3 inch touch screen HMI used. All steps and parameters displayed',
+      'Specially designed clamping - easy to break products usable',
+      'Various shape coating possible (sheets, blocks, cylindrical)'
+    ],
+    specificationsKorean: [
+      '풀링 속도 : 1 ~ 8000µm/s/ resolution:1µm/s',
+      'Stroke length: MAX 260 mm , resolution:1mm',
+      'Substrate size: MIN 10×10mm, MAX 200×200mm',
+      'MAX thickness 10mm',
+      'Dipping time: 1 ~ 3600s , resolution:1s',
+      'Dipping-Coating cycle times: 1 ~ 1000 times',
+      'Cycle interval: 1 ~ 3600s , resolution:1s',
+      'Dimensions (L×W×H): 440×300×780mm',
+      '서보모터와 고정밀 작동모듈사용 부드럽고 안정적인 코팅속도',
+      '100% 윤활불필요하며 약품에 견디는 재질 채용',
+      '다양한 파라미터, 전자동 제어 (디핑/풀링속도조절, 침적시간, 스트로크거리, 코팅사이클, 코팅간격등)',
+      '4.3인치 터치스크린 HMI 사용. 모든 steps 와 parameters 디스플레이됨',
+      '특수설계된 클램핑- 깨지기 쉬운제품 사용가능',
+      'sheets, blocks, cylindrical 등 다양한 형상 코팅 가능함'
+    ],
+    images: ['4.png']
+  },
+  {
+    id: 'colloidal-pd-recovery-system',
+    shortname: 'Colloidal Pd recovery',
+    name: 'Colloidal Pd Recovery System',
+    nameKorean: '콜로이드 팔라듐 회수장치',
+    description: '',
+    specifications: [
+      'Generally, ion type palladium can be recovered by ion exchange equipment, but colloidal palladium is very difficult to recover by ion exchange resin method.',
+      'Uses new recovery method through chemical reaction',
+      'High recovery rate compared to existing ion exchange method (over 90~95%)',
+      'No resin replacement needed, no risk of resin contamination',
+      'Reduction of TOC, COD in wastewater',
+      'Accurate recovery value assessment as recovery process takes place at palladium usage production site'
+    ],
+    specificationsKorean: [
+      '일반적으로 이온타입 팔라듐은 이온교환장치등으로 회수가능. 하지만 콜로이드형 팔라듐은 이온교환수지방법으로 회수가 매우 어려움.',
+      '약품반응을 통한 신규 회수 방법사용 기존 이온교환방식에 비해 높은 회수율 (90~95% 이상)',
+      '레진교환이 필요없으며, 레진 오염발생위험이 없음.',
+      '폐수의 TOC, COD 감소.',
+      '회수공정이 팔라듐사용 생산현장에서 이뤄지므로 정확하게 회수 가치 평가.'
+    ],
+    images: ['5-1.png', '5-2.png']
+  },
+  {
+    id: 'tin-recovery-system',
+    shortname: 'TinCycle',
+    name: 'Pattern Plating Tin Stripper Tin Recovery System – TinCycle',
+    nameKorean: '패턴도금 Tin Stripper Tin 회수장치– TinCycle',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['6.png']
+  },
+  {
+    id: 'smart-water-supply-control-enflow',
+    shortname: 'ENflow',
+    name: 'Smart Water supply control - ENflow',
+    nameKorean: '스마트 물공급조절장치',
+    description: '',
+    specifications: [
+      'AI water supply control device through pH, conductivity meter data',
+      'Cloud-based pH, conductivity meter real-time monitoring and control',
+      'MES integration management',
+      'Adopted by leading PCB companies such as SCC, Fastprint, AVARY',
+      '15~50% water supply saving & wastewater treatment volume saving'
+    ],
+    specificationsKorean: [
+      'pH, 전도도미터의 데이터를 통한 인공지능 물공급 제어 장치',
+      '클라우드 기반 pH, 전도도미터 실시간 모니터링 및 제어',
+      'MES 연동 관리',
+      'SCC, Fastprint, AVARY 등 선도 PCB 기업에서 채용중.',
+      '15~50% 물공급량 절약 & 폐수처리량 절약'
+    ],
+    images: ['7.png']
+  }
+];
+
+export const encycleData: SolutionItem[] = [
+  {
+    id: 'sponge-roller-sheet',
+    shortname: 'Sponge Roller & Sheets',
+    name: 'Sponge Roller & Sheets',
+    nameKorean: '고흡수성 스폰지롤러',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['1-1.png', '1-2.png']
+  },
+  {
+    id: 'ensave-spiral-weight-roller',
+    shortname: 'EnSave Spiral Weight Roller',
+    name: 'Spiral Weight Roller (특허등록)',
+    nameKorean: '액절강화롤러',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['2-1.png', '2-2.png', '2-3.png']
+  },
+  {
+    id: 'ceramic-non-woven-brush',
+    shortname: 'High Cut Ceramic & Non-woven Brush',
+    name: 'High Cut Ceramic & Non-woven Brush',
+    nameKorean: '세라믹/고절삭 부직포 브러시',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['3-1.png', '3-2.png']
+  },
+  {
+    id: 'dual-cu-al-film',
+    shortname: 'Dual Cu-Al Film',
+    name: 'Dual Cu-Al Film',
+    nameKorean: 'Cu-Aluminum 복합듀얼박',
+    description: '',
+    specifications: [],
+    specificationsKorean: [
+      '고온, 고압, 무산소 조건 하에서 구리층과 알루미늄층 사이의 금속학적 접합 실현',
+      '구리-알루미늄 간 산화층 또는 기타 물질 없음',
+      '20N/mm 구리/알루미늄간 계면 접합강도',
+      '10~30% 동박 두께 비율',
+      '국제적으로 인증받은 이중 금속 복합 공정 (반용융 알루미늄 접합공정)',
+      '배터리, EMI, 캐리어 필름 응용, 무게 및 비용감소',
+      'CATL, Huawei 등 중국 유수전기전자업체 고객확보',
+      '단면/양면 복합동박'
+    ],
+    images: ['4-1.png', '4-2.png']
+  },
+  {
+    id: 'insoluble-anode',
+    shortname: 'Insoluble anode',
+    name: 'Insoluble Anode',
+    nameKorean: '불용성 양극',
+    description: '',
+    specifications: [],
+    specificationsKorean: [
+      '이탈리아 CNT 사와 기술제휴.',
+      '최저 광택제 소모량.',
+      '긴수명과 신뢰성.',
+      '수평, 수직 적용.',
+      '메쉬 와 평판 타입 선택',
+      '고객사 디자인에 맞추어 제작.',
+      'DC Cu plating',
+      'PPR Cu plating',
+      'Platinum Anode for Gold plating',
+      'Decorative coating',
+      'Fouling 방지 냉가수 소독 (IMO / USCG 규제)',
+      'Cu foil production (ED)',
+      '폐수처리 킬레이트 분해'
+    ],
+    images: ['5-1.png', '5-2.png']
+  },
+  {
+    id: 'non-contact-digital-flowmeter',
+    shortname: 'Non-contact Digital Flowmeter',
+    name: 'Non-contact Digital Flowmeter',
+    nameKorean: '비접촉 디지털 유량계',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['6.png']
+  },
+  {
+    id: 'activated-carbon-filter',
+    shortname: 'Activated carbon filter',
+    name: 'Activated carbon filter',
+    nameKorean: '고정밀 카본필터',
+    description: '',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['7-1.png', '7-2.png']
+  },
+  {
+    id: 'nano-cuprum-filter',
+    shortname: 'Nano-CuPrum', 
+    name: 'Nano-CuPrum',
+    nameKorean: '항균필터',
+    description: 'PP 필터에 항균물질 함침 가공, 필터성능변화없이 99% 박테리아, 곰팡이제거',
+    specifications: [],
+    specificationsKorean: [],
+    images: ['8.png']
+  }
+];
+
+export const getSolutionItem = (id: string): SolutionItem | undefined => {
+  return [...equipmentData, ...enproductiveData, ...encycleData].find(item => item.id === id);
 };

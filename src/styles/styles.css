@@ -61,4 +61,71 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-duration-fast: 150ms;
+  --transition-duration-normal: 300ms;
+  --transition-duration-slow: 500ms;
+  --transition-timing: ease-in-out;
+}
+
+/* Fade Transitions */
+.fade-transition {
+  transition: opacity var(--transition-duration-normal) var(--transition-timing);
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-duration-normal) var(--transition-timing);
+}
+
+.fade-out {
+  animation: fadeOut var(--transition-duration-normal) var(--transition-timing);
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--transition-duration-normal) var(--transition-timing);
+}
+
+.fade-in-down {
+  animation: fadeInDown var(--transition-duration-normal) var(--transition-timing);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
