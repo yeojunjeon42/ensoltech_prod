@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import AnimatedRoute from './components/AnimatedRoute';
+import { LanguageProvider } from './contexts/LanguageContext';
 import './styles/styles.css';
 import SolutionCards from './components/SolutionCards';
 
@@ -29,9 +30,11 @@ function AppContent() {
 
 function App() {
     return (
-        <Router> 
-            <AppContent />
-        </Router>
+        <LanguageProvider>
+            <Router> 
+                <AppContent />
+            </Router>
+        </LanguageProvider>
     );
 }
 export default App;

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getSolutionItem } from '../data/solutionData';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const EquipmentDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const { language } = useLanguage();
   const item = id ? getSolutionItem(id) : undefined;
   
   // Extract category from pathname (equipment, enproductive, or encycle)
@@ -34,11 +36,18 @@ const EquipmentDetail: React.FC = () => {
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {item.name}
+            {language === 'en' ? item.name : item.nameKorean}
           </h1>
-          <p className="text-xl text-gray-600 mb-6">
-            {item.nameKorean}
-          </p>
+          {language === 'en' && item.nameKorean && (
+            <p className="text-xl text-gray-600 mb-6">
+              {item.nameKorean}
+            </p>
+          )}
+          {language === 'ko' && item.name && (
+            <p className="text-xl text-gray-600 mb-6">
+              {item.name}
+            </p>
+          )}
           
           <div className="prose max-w-none">
             {/* <h2 className="text-2xl font-semibold text-gray-900 mb-4">Description</h2>
@@ -46,7 +55,7 @@ const EquipmentDetail: React.FC = () => {
               {item.description}
             </p> */}
 
-            {item.specifications && item.specifications.length > 0 && (
+            {language === 'en' && item.specifications && item.specifications.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications</h2>
                 <ul className="space-y-2">
@@ -60,7 +69,7 @@ const EquipmentDetail: React.FC = () => {
               </div>
             )}
 
-            {item.specificationsKorean && item.specificationsKorean.length > 0 && (
+            {language === 'ko' && item.specificationsKorean && item.specificationsKorean.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Specifications</h2>
                 <ul className="space-y-2">
