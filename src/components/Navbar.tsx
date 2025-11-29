@@ -86,8 +86,8 @@ function Navbar() {
                     {/* Equipment Link with Dropdown */}
                     <SolutionDropdown
                         items={equipmentData}
-                        title="Equipment Solution"
-                        titleKorean="생산장비솔루션"
+                        title="Equipment"
+                        titleKorean="생산장비 솔루션"
                         isOpen={isEquipmentOpen}
                         setIsOpen={setIsEquipmentOpen}
                         timeoutRef={equipmentTimeout}
@@ -99,8 +99,8 @@ function Navbar() {
                     {/* EnProductive Link with Dropdown */}
                     <SolutionDropdown
                         items={enproductiveData}
-                        title="EnProductive Solution"
-                        titleKorean="부속장비/부품자재 솔루션"
+                        title="EnProductive"
+                        titleKorean="부속설비 솔루션"
                         isOpen={isEnProductiveOpen}
                         setIsOpen={setIsEnProductiveOpen}
                         timeoutRef={enProductiveTimeout}
@@ -112,8 +112,8 @@ function Navbar() {
                     {/* EnCycle Link with Dropdown */}
                     <SolutionDropdown
                         items={encycleData}
-                        title="EnCycle"
-                        titleKorean="환경설비 솔루션"
+                        title="EnSave"
+                        titleKorean="부품/자재 솔루션"
                         isOpen={isEnCycleOpen}
                         setIsOpen={setIsEnCycleOpen}
                         timeoutRef={enCycleTimeout}
