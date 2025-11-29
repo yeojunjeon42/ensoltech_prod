@@ -113,7 +113,7 @@ function Navbar() {
                     <SolutionDropdown
                         items={encycleData}
                         title="EnSave"
-                        titleKorean="부품/자재 솔루션"
+                        titleKorean="자재 솔루션"
                         isOpen={isEnCycleOpen}
                         setIsOpen={setIsEnCycleOpen}
                         timeoutRef={enCycleTimeout}
