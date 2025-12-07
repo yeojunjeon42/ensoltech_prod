@@ -152,7 +152,7 @@ function Navbar() {
                 className="cursor-pointer text-black hover:text-blue-300 transition-colors duration-300 px-3 py-5 rounded-lg hover:bg-gray-200/50 font-medium bg-gray-100/80 backdrop-blur-lg"
                 title={language === 'en' ? 'Switch to Korean' : 'Switch to English'}
             >
-                {language === 'en' ? 'EN' : 'KO'}
+                {language === 'en' ? 'KO' : 'EN'}
             </button>
         </div>
     );
