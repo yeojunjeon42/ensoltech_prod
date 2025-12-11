@@ -28,6 +28,12 @@ const Contact: React.FC = () => {
     setSubmitStatus({ type: null, message: '' });
 
     try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string;
+      
+      if (!accessKey) {
+        throw new Error('Web3Forms access key is not configured');
+      }
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -35,7 +41,7 @@ const Contact: React.FC = () => {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'fb8cd7dd-6687-402d-bb3d-da6257e95b36',
+          access_key: accessKey,
           name: formData.name,
           organization: formData.organization,
           email: formData.email,
