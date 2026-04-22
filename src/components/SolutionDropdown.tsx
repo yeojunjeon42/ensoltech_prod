@@ -14,8 +14,12 @@ interface SolutionDropdownProps {
     onTabLeave: () => void;
 }
 
-const LINK_CLASSES = "block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2.5 rounded transition-colors";
+const LINK_CLASSES = "group block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-3 py-2.5 rounded transition-colors";
 const BUTTON_CLASSES = "cursor-pointer text-black hover:text-blue-300 transition-colors duration-300 font-medium flex flex-col items-end";
+const THUMB_CLASSES = "mt-2 w-full aspect-[4/3] overflow-hidden rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center";
+const THUMB_IMG_CLASSES = "w-full h-full object-contain transition-transform duration-300 ease-out group-hover:scale-105";
+
+const folderFromPrefix = (routePrefix: string): string => routePrefix.replace(/\//g, '');
 
 const SolutionDropdown: React.FC<SolutionDropdownProps> = ({
     items,
@@ -62,17 +66,31 @@ const SolutionDropdown: React.FC<SolutionDropdownProps> = ({
                 <div className="max-w-7xl lg:mx-22 p-6 mx-10">
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">{title} ({titleKorean})</h3>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-                        {items.map((item) => (
-                            <Link
-                                key={item.id}
-                                to={`${routePrefix}${item.id}`}
-                                className={LINK_CLASSES}
-                            >
-                                <span className="block">{item.shortname}</span>
-                                <span className="block text-gray-400 text-xs mt-0.5">{item.nameKorean}</span>
-                            </Link>
-                        ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
+                        {items.map((item) => {
+                            const thumb = item.images?.[0];
+                            const folder = folderFromPrefix(routePrefix);
+                            return (
+                                <Link
+                                    key={item.id}
+                                    to={`${routePrefix}${item.id}`}
+                                    className={LINK_CLASSES}
+                                >
+                                    <span className="block font-medium">{item.shortname}</span>
+                                    <span className="block text-gray-400 text-xs mt-0.5">{item.nameKorean}</span>
+                                    {thumb && (
+                                        <div className={THUMB_CLASSES}>
+                                            <img
+                                                src={`/img/${folder}/${thumb}`}
+                                                alt={item.shortname}
+                                                className={THUMB_IMG_CLASSES}
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    )}
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
