@@ -6,6 +6,38 @@
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Lock background scroll when a mobile drawer/sheet is open */
+body[data-scroll-locked='true'] {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* Native horizontal scroll-snap container for the mobile carousel */
+.snap-rail {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.snap-rail::-webkit-scrollbar { display: none; }
+.snap-rail > * { scroll-snap-align: center; scroll-snap-stop: always; }
+
+/* Editorial number tag used in the mobile drawer */
+.eyebrow-num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.18em;
 }
 
 /* Color Palette */

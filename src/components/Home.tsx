@@ -1,20 +1,15 @@
-import React from 'react';
 import Hero from '../components/Hero';
 import Carousel from '../components/Carousel';
 import Contact from '../components/Contact';
 
 function Home() {
     return (
-        <div className="pt-24 px-4 lg:px-32 p-10">
-
+        <main className="pt-20 sm:pt-24 px-4 sm:px-6 lg:px-32 pb-12 sm:pb-16">
             <Hero />
-            
             <Carousel />
-            
             <Contact />
-        </div>
+        </main>
     );
 }
 
 export default Home;
-
