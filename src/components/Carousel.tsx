@@ -1,209 +1,180 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
+interface CarouselImage {
+    src: string;
+    alt: string;
+    link: string;
+}
+
+const EQUIPMENT_IMAGES: CarouselImage[] = [
+    { src: '/img/equipment/1.png',     alt: 'Horizontal Inline Desmear-PTH-Flash Cu Line',                    link: '/equipment/horizontal-inline-desmear-pth-flash-cu' },
+    { src: '/img/enproductive/2-2.png', alt: 'Smart filter – Desmear sludgy/particle automatic discharge system', link: '/enproductive/smart-filter-particle-sludgy-auto-discharger' },
+    { src: '/img/enproductive/1-1.png', alt: 'TOPWAY - Real time Online Chemical Analyzer & Dosing System',     link: '/enproductive/topway-online-chemical-analyzer' },
+    { src: '/img/equipment/4.png',     alt: 'Horizontal Wet process',                                          link: '/equipment/horizontal-wet-process' },
+    { src: '/img/equipment/2.png',     alt: 'Steel belt type VCP',                                             link: '/equipment/steel-belt-vcp' },
+    { src: '/img/equipment/5-1.png',   alt: 'Horizontal Vacuum Hole Plugging',                                 link: '/equipment/horizontal-vacuum-hole-plugging' },
+];
+
+const AUTO_ADVANCE_MS = 4500;
+
 function Carousel() {
-    // Array of equipment images from both folders
-    const equipmentImages = [
-        {
-            src: '/img/equipment/1.png',
-            alt: 'Horizontal Inline Desmear-PTH-Flash Cu Line',
-            link: '/equipment/horizontal-inline-desmear-pth-flash-cu'
-        },
-        {
-            src: '/img/enproductive/2-2.png',
-            alt: 'Smart filter – Desmear sludgy/particle automatic discharge system',
-            link: '/enproductive/smart-filter-particle-sludgy-auto-discharger'
-        },
-        {
-            src: '/img/enproductive/1-1.png', 
-            alt: 'TOPWAY - Real time Online Chemical Analyzer & Dosing System',
-            link: '/enproductive/topway-online-chemical-analyzer'
-        },
-        {
-            src: '/img/equipment/4.png',
-            alt: 'Horizontal Wet process',
-            link: '/equipment/horizontal-wet-process'
-        },
-        {
-            src: '/img/equipment/2.png',
-            alt: 'Steel belt type VCP',
-            link: '/equipment/steel-belt-vcp'
-        },
-        {
-            src: '/img/equipment/5-1.png',
-            alt: 'Horizontal Vacuum Hole Plugging',
-            link: '/equipment/horizontal-vacuum-hole-plugging'
-        }
-    ];
+    const railRef = useRef<HTMLDivElement | null>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isUserInteracting, setIsUserInteracting] = useState(false);
+    const interactionTimer = useRef<number | null>(null);
 
-    // State to track current image index
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    // State for tooltip
-    const [showTooltip, setShowTooltip] = useState(false);
-    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-    // Ref to store interval ID for timer reset
-    const intervalRef = useRef<number | null>(null);
+    const scrollToIndex = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
+        const rail = railRef.current;
+        if (!rail) return;
+        const slide = rail.children[index] as HTMLElement | undefined;
+        if (!slide) return;
+        rail.scrollTo({ left: slide.offsetLeft, behavior });
+    }, []);
 
-    // Function to start/reset the auto-rotate timer
-    const startTimer = () => {
-        // Clear existing interval if any
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-        }
-        // Start new interval
-        intervalRef.current = window.setInterval(() => {
-            setCurrentImageIndex((prevIndex) => 
-                (prevIndex + 1) % equipmentImages.length
-            );
-        }, 3500);
-    };
-
-    // Auto-rotate images every 3.5 seconds
+    // Track which slide is closest to center using IntersectionObserver
     useEffect(() => {
-        startTimer();
-        // Cleanup interval on component unmount
-        return () => {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-            }
-        };
-    }, [equipmentImages.length]);
+        const rail = railRef.current;
+        if (!rail) return;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                let bestEntry: IntersectionObserverEntry | null = null;
+                for (const entry of entries) {
+                    if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
+                        bestEntry = entry;
+                    }
+                }
+                if (bestEntry && bestEntry.intersectionRatio > 0.6) {
+                    const idx = Number((bestEntry.target as HTMLElement).dataset.index);
+                    if (!Number.isNaN(idx)) setCurrentIndex(idx);
+                }
+            },
+            { root: rail, threshold: [0.6, 0.9, 1] }
+        );
+        Array.from(rail.children).forEach((child) => observer.observe(child));
+        return () => observer.disconnect();
+    }, []);
 
-    // Navigate to next image
+    // Auto-advance, paused while the user is interacting
+    useEffect(() => {
+        if (isUserInteracting) return;
+        const id = window.setInterval(() => {
+            const next = (currentIndex + 1) % EQUIPMENT_IMAGES.length;
+            scrollToIndex(next);
+        }, AUTO_ADVANCE_MS);
+        return () => window.clearInterval(id);
+    }, [currentIndex, isUserInteracting, scrollToIndex]);
+
+    const pauseInteraction = useCallback(() => {
+        setIsUserInteracting(true);
+        if (interactionTimer.current) window.clearTimeout(interactionTimer.current);
+        interactionTimer.current = window.setTimeout(() => setIsUserInteracting(false), 4000);
+    }, []);
+
+    const goToPrev = () => {
+        pauseInteraction();
+        scrollToIndex((currentIndex - 1 + EQUIPMENT_IMAGES.length) % EQUIPMENT_IMAGES.length);
+    };
+
     const goToNext = () => {
-        setCurrentImageIndex((prevIndex) => 
-            (prevIndex + 1) % equipmentImages.length
-        );
-        startTimer(); // Reset timer
-    };
-
-    // Navigate to previous image
-    const goToPrevious = () => {
-        setCurrentImageIndex((prevIndex) => 
-            (prevIndex - 1 + equipmentImages.length) % equipmentImages.length
-        );
-        startTimer(); // Reset timer
-    };
-
-    // Navigate to specific image (for dots)
-    const goToImage = (index: number) => {
-        setCurrentImageIndex(index);
-        startTimer(); // Reset timer
-    };
-
-    // Handle mouse move for tooltip positioning
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (showTooltip) {
-            setTooltipPosition({ x: e.clientX, y: e.clientY });
-        }
-    };
-
-    // Handle mouse enter for images with links
-    const handleMouseEnter = (e: React.MouseEvent) => {
-        setTooltipPosition({ x: e.clientX, y: e.clientY });
-        setShowTooltip(true);
-    };
-
-    // Handle mouse leave
-    const handleMouseLeave = () => {
-        setShowTooltip(false);
+        pauseInteraction();
+        scrollToIndex((currentIndex + 1) % EQUIPMENT_IMAGES.length);
     };
 
     return (
-        <div className="w-full flex flex-col justify-center items-center mt-8 px-2 lg:px-4 relative">
-            {/* Tooltip */}
-            {showTooltip && (
-                <div
-                    className="fixed z-50 pointer-events-none"
-                    style={{
-                        left: `${tooltipPosition.x + 10}px`,
-                        top: `${tooltipPosition.y + 10}px`,
-                    }}
-                >
-                    <div className="bg-gray-800 text-white text-sm px-3 py-1.5 rounded shadow-lg">
-                        Click to view
-                    </div>
-                </div>
-            )}
-            {/* Image Container with Sliding Animation */}
-            <div className="w-full overflow-hidden rounded-lg shadow-sm relative">
-                {/* Left Arrow Button */}
+        <section
+            aria-roledescription="carousel"
+            aria-label="Featured equipment"
+            className="w-full mt-8 sm:mt-12"
+            onPointerDown={pauseInteraction}
+        >
+            <div className="relative">
+                {/* Edge fade markers — purely decorative depth cue */}
+                <div className="pointer-events-none hidden sm:block absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent z-10" />
+                <div className="pointer-events-none hidden sm:block absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent z-10" />
+
+                {/* Side arrows — desktop / tablet only */}
                 <button
-                    onClick={goToPrevious}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/95 backdrop-blur-sm rounded-r-lg px-3 py-16 shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer flex items-center justify-center"
-                    aria-label="Previous image"
+                    onClick={goToPrev}
+                    aria-label="Previous slide"
+                    className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-md backdrop-blur-sm transition-transform hover:scale-105"
                 >
-                    <span className="text-gray-800 text-4xl font-bold select-none leading-none">&lt;</span>
+                    <span className="text-gray-800 text-2xl leading-none select-none">‹</span>
                 </button>
-                
-                {/* Right Arrow Button */}
                 <button
                     onClick={goToNext}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/95 backdrop-blur-sm rounded-l-lg px-3 py-16 shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer flex items-center justify-center"
-                    aria-label="Next image"
+                    aria-label="Next slide"
+                    className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-md backdrop-blur-sm transition-transform hover:scale-105"
                 >
-                    <span className="text-gray-800 text-4xl font-bold select-none leading-none">&gt;</span>
+                    <span className="text-gray-800 text-2xl leading-none select-none">›</span>
                 </button>
-                <div 
-                    className="flex transition-transform duration-1000 ease-in-out"
-                    style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
-                >
-                    {equipmentImages.map((image, index) => {
-                        const imageContent = (
-                            <>
-                                <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    className={`w-full h-130 object-contain ${image.link ? 'cursor-pointer hover:opacity-90 transition-opacity' : ''}`}
-                                />
-                                {/* Semi-transparent overlay with image name */}
-                                <div className="absolute top-4 left-4 bg-gray-400/100 backdrop-blur-sm px-4 py-4 rounded-lg">
-                                    <p className="text-white font-medium text-lg">
-                                        {image.alt}
-                                    </p>
-                                </div>
-                            </>
-                        );
 
-                        return (
-                            <div 
-                                key={index} 
-                                className="relative w-full flex-shrink-0 p-4 lg:p-8"
-                                onMouseMove={image.link ? handleMouseMove : undefined}
-                                onMouseEnter={image.link ? handleMouseEnter : undefined}
-                                onMouseLeave={image.link ? handleMouseLeave : undefined}
-                            >
-                                {image.link ? (
-                                    <Link to={image.link}>
-                                        {imageContent}
-                                    </Link>
-                                ) : (
-                                    imageContent
-                                )}
-                            </div>
-                        );
-                    })}
+                <div
+                    ref={railRef}
+                    className="snap-rail flex overflow-x-auto rounded-xl"
+                    role="group"
+                >
+                    {EQUIPMENT_IMAGES.map((image, index) => (
+                        <div
+                            key={image.src}
+                            data-index={index}
+                            aria-roledescription="slide"
+                            aria-label={`${index + 1} of ${EQUIPMENT_IMAGES.length}`}
+                            className="relative shrink-0 w-full"
+                        >
+                            <Link to={image.link} className="block relative">
+                                <div className="relative bg-gray-50 rounded-xl overflow-hidden">
+                                    <img
+                                        src={image.src}
+                                        alt={image.alt}
+                                        loading={index === 0 ? 'eager' : 'lazy'}
+                                        decoding="async"
+                                        className="w-full h-64 sm:h-80 md:h-96 lg:h-[32.5rem] object-contain select-none"
+                                        draggable={false}
+                                    />
+                                    {/* Caption — editorial chip, bottom-left, small on mobile */}
+                                    <div className="absolute left-3 bottom-3 sm:left-4 sm:bottom-4 max-w-[85%]">
+                                        <div className="inline-flex items-center gap-2 bg-gray-900/85 backdrop-blur-sm text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full">
+                                            <span className="eyebrow-num text-[10px] sm:text-[11px] text-white/60">
+                                                {String(index + 1).padStart(2, '0')} / {String(EQUIPMENT_IMAGES.length).padStart(2, '0')}
+                                            </span>
+                                            <span className="text-[12px] sm:text-sm font-medium leading-tight line-clamp-2">
+                                                {image.alt}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            {/* Navigation Dots */}
-            <div className="flex gap-3 mt-6">
-                {equipmentImages.map((_, index) => (
+            {/* Dots — touch-friendly */}
+            <div className="flex items-center justify-center gap-2 mt-5 sm:mt-6">
+                {EQUIPMENT_IMAGES.map((_, index) => (
                     <button
                         key={index}
-                        onClick={() => goToImage(index)}
-                        className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${
-                            index === currentImageIndex 
-                                ? 'bg-blue-600 w-8 shadow-lg shadow-blue-500/50' 
-                                : 'bg-gray-300 w-3 hover:bg-blue-400 hover:scale-110 hover:shadow-md hover:w-4'
-                        }`}
-                        aria-label={`Go to image ${index + 1}`}
-                    />
+                        onClick={() => {
+                            pauseInteraction();
+                            scrollToIndex(index);
+                        }}
+                        aria-label={`Go to slide ${index + 1}`}
+                        aria-current={index === currentIndex}
+                        className="group p-2 -m-1"
+                    >
+                        <span
+                            className={`block h-1.5 rounded-full transition-all duration-300 ${
+                                index === currentIndex
+                                    ? 'w-7 bg-blue-600'
+                                    : 'w-1.5 bg-gray-300 group-hover:bg-gray-400'
+                            }`}
+                        />
+                    </button>
                 ))}
             </div>
-        </div>
+        </section>
     );
 }
 
 export default Carousel;
-
